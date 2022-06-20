@@ -26,7 +26,7 @@ app.get('/search', async (request, response) => {
     let result = await collection
       .aggregate([
         {
-          $Search: {
+          $search: {
             autocomplete: {
               query: `${request.query.query}`,
               path: 'title',
@@ -42,6 +42,7 @@ app.get('/search', async (request, response) => {
     response.send(result);
   } catch (error) {
     response.status(500).send({ message: error.message });
+    console.log(error);
   }
 });
 
@@ -58,5 +59,5 @@ app.get('/get/:id', async (request, response) => {
 });
 
 app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running`);
 });
